@@ -10,6 +10,7 @@ const fed = JSON.parse(fs.readFileSync('data/federal.json'));
 const statesData = JSON.parse(fs.readFileSync('data/states.json')).states;
 const SALARIES = [50000, 60000, 75000, 100000, 150000];
 const statesBySlug = {}; statesData.forEach(s => statesBySlug[s.slug] = s);
+const guides = JSON.parse(fs.readFileSync('data/guides.json')).guides;
 const HOURLY_RATES = [15, 18, 20, 22, 25, 30, 35, 40, 45, 50, 60, 75];
 const COMPARE_ANCHORS = ['california','texas','new-york','florida','washington','illinois'];
 const DIST = process.env.OUT || 'dist';
@@ -49,7 +50,7 @@ function layout({ title, desc, canonical, jsonld, body, embed }) {
 ${headScripts()}${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head><body>
 <header class="site"><div class="wrap"><a href="/">${esc(NAME)}</a>
-<nav><a href="/">Calculator</a><a href="/#states">States</a><a href="/about/">About</a></nav></div></header>
+<nav><a href="/">Calculator</a><a href="/#states">States</a><a href="/guides/">Guides</a><a href="/about/">About</a></nav></div></header>
 <main class="wrap">${body}</main>
 <footer class="site"><div class="wrap">
 <p>${esc(NAME)} provides free take-home pay estimates for ${YEAR}. Estimates only — not tax advice.</p>
@@ -190,6 +191,8 @@ ${adUnit()}
 <p>Choose your state for a dedicated calculator and breakdown. States marked ★ have no state income tax.</p>
 <div class="statelist">${list}</div>
 ${cta()}
+<h2>Guides</h2>
+<p>New to paychecks and taxes? Start with our <a href="/guides/">plain-English guides</a> on how take-home pay, FICA, and tax brackets work.</p>
 <h2>Salary tools &amp; comparisons</h2>
 <p>Convert an hourly wage to an annual salary, or compare take-home pay between states.</p>
 <div class="chips">${[15,20,25,30,40,50].map(r=>`<a href="/hourly-to-salary/${r}-per-hour/">$${r}/hour to salary</a>`).join('')}</div>
@@ -320,6 +323,37 @@ ${DISC}`;
   return canonical;
 }
 
+
+function guidePage(g){
+  const canonical=`/guides/${g.slug}/`;
+  const jsonld=[{ "@context":"https://schema.org","@type":"Article","headline":g.h1,"author":{"@type":"Organization","name":NAME},"publisher":{"@type":"Organization","name":NAME} },
+    { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
+      {"@type":"ListItem","position":2,"name":"Guides","item":SITE+"/guides/"},
+      {"@type":"ListItem","position":3,"name":g.h1,"item":SITE+canonical}]}];
+  const others=guides.filter(x=>x.slug!==g.slug).map(x=>`<a href="/guides/${x.slug}/">${esc(x.h1)}</a>`).join('');
+  const body=`<p class="crumbs"><a href="/">Home</a> &#8250; <a href="/guides/">Guides</a> &#8250; ${esc(g.h1)}</p>
+<h1>${esc(g.h1)}</h1>
+${g.html}
+${adUnit()}
+${cta()}
+<h2>More guides</h2>
+<div class="chips">${others}</div>
+${DISC}`;
+  write(`guides/${g.slug}/index.html`, layout({ title:g.title, desc:g.desc, canonical, jsonld, body }));
+  return canonical;
+}
+function guidesIndexPage(){
+  const items=guides.map(g=>`<h3 style="margin-bottom:2px"><a href="/guides/${g.slug}/">${esc(g.h1)}</a></h3><p style="margin-top:0;color:#5b6573">${esc(g.desc)}</p>`).join('');
+  const body=`<p class="crumbs"><a href="/">Home</a> &#8250; Guides</p>
+<h1>Paycheck &amp; Tax Guides</h1>
+<p class="lead">Plain-English explanations of how your take-home pay, payroll taxes, and tax brackets work in 2026.</p>
+${items}
+${cta()}`;
+  write('guides/index.html', layout({ title:`Paycheck & Tax Guides — ${NAME}`, desc:`Free 2026 guides on take-home pay, FICA taxes, federal brackets, and reading your paycheck.`, canonical:'/guides/', body }));
+  return '/guides/';
+}
+
 // ---------- Build ----------
 rmrf(DIST);
 fs.mkdirSync(DIST, { recursive:true });
@@ -330,6 +364,8 @@ fs.copyFileSync('src/calculator.js', path.join(DIST,'assets/calculator.js'));
 
 const urls = ['/','/about/'];
 homePage(); aboutPage(); notFound();
+urls.push(guidesIndexPage());
+guides.forEach(g => urls.push(guidePage(g)));
 urls.push(privacyPage(), termsPage(), contactPage());
 statesData.forEach(s => urls.push(statePage(s)));
 statesData.forEach(s => SALARIES.forEach(a => urls.push(salaryPage(a, s))));

@@ -1,0 +1,39 @@
+{
+ "guides": [
+  {
+   "slug": "how-take-home-pay-is-calculated",
+   "title": "How Is Take-Home Pay Calculated? (2026 Guide)",
+   "desc": "Learn exactly how your take-home pay is calculated in 2026 — federal income tax, Social Security, Medicare, and state taxes, step by step.",
+   "h1": "How Is Take-Home Pay Calculated?",
+   "html": "<p class=\"lead\">Take-home pay is what lands in your bank account after taxes are withheld from your gross salary. Here is exactly how it is calculated in 2026.</p><h2>The formula</h2><p>Take-home pay = gross salary &minus; federal income tax &minus; Social Security &minus; Medicare &minus; state income tax &minus; pre-tax deductions (like 401(k)).</p><h2>Step 1: Federal income tax</h2><p>First, subtract the 2026 standard deduction ($16,100 for single filers) from your gross salary to get taxable income. Then apply the progressive federal brackets &mdash; only the income inside each bracket is taxed at that bracket&rsquo;s rate, so your effective rate is lower than your top bracket.</p><h2>Step 2: FICA (Social Security &amp; Medicare)</h2><p>Social Security is 6.2% of wages up to the $184,500 wage base. Medicare is 1.45% of all wages, plus an extra 0.9% on income above $200,000 (single). FICA is calculated on gross wages and is not reduced by the standard deduction.</p><h2>Step 3: State income tax</h2><p>Most states levy their own income tax on top of federal. Nine states have no wage income tax at all. Rates and brackets vary widely by state.</p><h2>Step 4: Pre-tax deductions</h2><p>401(k) and similar contributions reduce your taxable income for income tax (but not for FICA), lowering your tax bill while moving money to retirement.</p><p>Want the exact number for your salary and state? Use our <a href=\"/\">free take-home pay calculator</a>.</p>"
+  },
+  {
+   "slug": "fica-taxes-explained",
+   "title": "FICA Taxes Explained: Social Security & Medicare (2026)",
+   "desc": "What is FICA on your paycheck? A clear 2026 explanation of Social Security (6.2%) and Medicare (1.45%) payroll taxes and how much you pay.",
+   "h1": "FICA Taxes Explained",
+   "html": "<p class=\"lead\">FICA stands for the Federal Insurance Contributions Act &mdash; the payroll taxes that fund Social Security and Medicare. Here is how it works in 2026.</p><h2>Social Security: 6.2%</h2><p>Employees pay 6.2% of wages toward Social Security, up to the 2026 wage base of $184,500. Earnings above that are not subject to Social Security tax, so the maximum employee contribution is capped.</p><h2>Medicare: 1.45% (plus 0.9%)</h2><p>Medicare is 1.45% of all wages with no cap. High earners pay an additional 0.9% Medicare surtax on income above $200,000 (single) or $250,000 (married filing jointly).</p><h2>Who pays it?</h2><p>Your employer withholds FICA automatically and matches your Social Security and base Medicare contributions. Self-employed people pay both halves via self-employment tax.</p><h2>Does 401(k) reduce FICA?</h2><p>No. Pre-tax 401(k) contributions lower your income tax but not your FICA &mdash; Social Security and Medicare apply to your full gross wages.</p><p>See your exact FICA withholding with our <a href=\"/\">take-home pay calculator</a>.</p>"
+  },
+  {
+   "slug": "2026-federal-income-tax-brackets",
+   "title": "2026 Federal Income Tax Brackets (Single Filers)",
+   "desc": "The 2026 federal income tax brackets and standard deduction, with a clear explanation of how marginal tax rates actually work.",
+   "h1": "2026 Federal Income Tax Brackets",
+   "html": "<p class=\"lead\">The IRS adjusts tax brackets each year for inflation. Here are the 2026 federal income tax brackets for single filers, plus how they actually apply to your income.</p><h2>2026 brackets (single filers)</h2><table class=\"breakdown\"><tr><td>10%</td><td>$0 &ndash; $12,400</td></tr><tr><td>12%</td><td>$12,400 &ndash; $50,400</td></tr><tr><td>22%</td><td>$50,400 &ndash; $105,700</td></tr><tr><td>24%</td><td>$105,700 &ndash; $201,775</td></tr><tr><td>32%</td><td>$201,775 &ndash; $256,225</td></tr><tr><td>35%</td><td>$256,225 &ndash; $640,600</td></tr><tr><td>37%</td><td>$640,600+</td></tr></table><h2>The 2026 standard deduction</h2><p>$16,100 for single filers, $32,200 for married filing jointly, and $24,150 for heads of household. You subtract this from your income before applying the brackets.</p><h2>How marginal rates work</h2><p>Being &ldquo;in the 22% bracket&rdquo; does not mean all your income is taxed at 22%. Each portion of income is taxed at its bracket&rsquo;s rate, so your <em>effective</em> rate is always lower than your top marginal rate.</p><p>Source: IRS Revenue Procedure 2025-32. Calculate your full tax with our <a href=\"/\">paycheck calculator</a>.</p>"
+  },
+  {
+   "slug": "states-with-no-income-tax",
+   "title": "States With No Income Tax (2026)",
+   "desc": "Nine U.S. states have no state income tax in 2026. See which states let you keep more of your paycheck and what to watch out for.",
+   "h1": "States With No Income Tax (2026)",
+   "html": "<p class=\"lead\">Nine states do not tax wage income in 2026, which means a bigger paycheck than in high-tax states &mdash; though they often make up revenue elsewhere.</p><h2>The nine no-income-tax states</h2><p>Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington, and Wyoming. (New Hampshire repealed its interest-and-dividends tax as of 2025; Washington taxes only certain capital gains, not wages.)</p><h2>What this means for your paycheck</h2><p>In a no-income-tax state, your take-home pay is reduced only by federal income tax and FICA. On a $75,000 salary, that can mean roughly $3,000 more per year than in a state like California.</p><h2>The trade-off</h2><p>No-income-tax states often have higher sales taxes, property taxes, or other fees. The overall cost of living matters as much as the income tax rate.</p><p>Compare any two states with our <a href=\"/compare/california-vs-texas/\">state comparison tool</a>, or pick your state on the <a href=\"/#states\">homepage</a>.</p>"
+  },
+  {
+   "slug": "how-to-read-your-paycheck",
+   "title": "How to Read Your Paycheck (Pay Stub Explained)",
+   "desc": "Confused by your pay stub? Here is what each line means — gross pay, federal withholding, FICA, state tax, and net pay.",
+   "h1": "How to Read Your Paycheck",
+   "html": "<p class=\"lead\">Your pay stub lists every deduction between your gross salary and the money you actually receive. Here is what each line means.</p><h2>Gross pay</h2><p>Your total earnings for the pay period before any deductions &mdash; salary or hourly wages times hours worked.</p><h2>Federal withholding</h2><p>The federal income tax your employer withholds based on your W-4. It is an estimate of your annual tax, spread across paychecks.</p><h2>Social Security &amp; Medicare (FICA)</h2><p>6.2% for Social Security (up to the wage base) and 1.45% for Medicare. These are mandatory payroll taxes.</p><h2>State &amp; local tax</h2><p>State income tax where applicable, plus any local or city taxes (for example, New York City or some Ohio municipalities).</p><h2>Pre-tax deductions</h2><p>401(k), health insurance premiums, and HSA contributions come out before taxes, lowering your taxable income.</p><h2>Net pay</h2><p>What is left &mdash; your take-home pay. Check yours against our <a href=\"/\">calculator</a> to make sure your withholding looks right.</p>"
+  }
+ ]
+}
