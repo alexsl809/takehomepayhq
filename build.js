@@ -49,7 +49,8 @@ ${headScripts()}${jsonld ? `<script type="application/ld+json">${JSON.stringify(
 <main class="wrap">${body}</main>
 <footer class="site"><div class="wrap">
 <p>${esc(NAME)} provides free take-home pay estimates for ${YEAR}. Estimates only — not tax advice.</p>
-<p><a href="/about/">About &amp; Methodology</a> · <a href="/#states">All states</a> · Sources: IRS, SSA, Tax Foundation</p>
+<p><a href="/about/">About</a> · <a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a> · <a href="/#states">All states</a></p>
+<p>Sources: IRS, SSA, Tax Foundation</p>
 <p>© ${YEAR} ${esc(NAME)}</p></div></footer>
 <script>window.__FED__=${JSON.stringify(fed)};${embed || ''}</script>
 <script src="/assets/calculator.js"></script>
@@ -208,6 +209,40 @@ function notFound(){
   write('404.html', layout({ title:`404 — ${NAME}`, desc:'Page not found', canonical:'/404.html', body }));
 }
 
+
+function legalPage(slug, title, h1, sections){
+  const body = `<h1>${h1}</h1>` + sections.map(([h,p])=> (h?`<h2>${h}</h2>`:'') + `<p>${p}</p>`).join('');
+  write(`${slug}/index.html`, layout({ title, desc: h1 + ' — ' + NAME, canonical:`/${slug}/`, body }));
+  return `/${slug}/`;
+}
+function privacyPage(){
+  return legalPage('privacy', `Privacy Policy — ${NAME}`, 'Privacy Policy', [
+    ['', `${esc(NAME)} ("we", "us") operates ${SITE}. This page explains what data we handle when you use our free take-home pay calculator.`],
+    ['Information we collect', `The calculator runs entirely in your browser. Salary and other figures you enter are processed on your device and are not sent to or stored on our servers. We do not require accounts and do not collect names, emails, or payment details.`],
+    ['Analytics', `We use Google Analytics 4 to understand aggregate, anonymous usage (pages viewed, country, device type). Google may set cookies for this purpose. See Google&#39;s Privacy Policy at https://policies.google.com/privacy.`],
+    ['Advertising', `We may display ads through Google AdSense and other partners. Third-party vendors, including Google, use cookies to serve ads based on prior visits to this and other websites. You can opt out of personalized advertising via https://www.google.com/settings/ads.`],
+    ['Affiliate links', `Some outbound links are affiliate links; we may earn a commission if you sign up or purchase, at no extra cost to you. This does not affect the calculator&#39;s results.`],
+    ['Your choices', `You can disable cookies in your browser settings and opt out of Google Analytics using the Google Analytics Opt-out Browser Add-on.`],
+    ['Contact', `Questions? See our Contact page.`],
+  ]);
+}
+function termsPage(){
+  return legalPage('terms', `Terms of Use — ${NAME}`, 'Terms of Use', [
+    ['', `By using ${SITE} you agree to these terms.`],
+    ['Estimates only — not advice', `${esc(NAME)} provides free educational estimates of take-home pay for the ${YEAR} tax year. Results are not tax, legal, or financial advice. Federal and FICA figures use IRS/SSA data; state figures use single-filer brackets and exclude local taxes. Your actual taxes depend on deductions, credits, and local rules. Verify with a qualified professional before relying on any figure.`],
+    ['No warranty', `The site is provided "as is" without warranties of any kind. We do not guarantee accuracy, completeness, or availability, and are not liable for any loss arising from use of the calculator.`],
+    ['Affiliate disclosure', `Some links are affiliate links and we may earn a commission. This never changes the numbers the calculator shows.`],
+    ['Changes', `We may update these terms or the underlying tax data at any time, including each new tax year.`],
+  ]);
+}
+function contactPage(){
+  const body = `<h1>Contact</h1><p class="lead">Questions, corrections, or feedback about ${esc(NAME)}?</p>`+
+    `<p>Email: <a href="mailto:hello@takehomepayhq.com">hello@takehomepayhq.com</a></p>`+
+    `<p>We welcome reports of any tax-data inaccuracies so we can keep the calculator reliable.</p>`;
+  write('contact/index.html', layout({ title:`Contact — ${NAME}`, desc:`Contact ${NAME}`, canonical:'/contact/', body }));
+  return '/contact/';
+}
+
 // ---------- Build ----------
 rmrf(DIST);
 fs.mkdirSync(DIST, { recursive:true });
@@ -218,6 +253,7 @@ fs.copyFileSync('src/calculator.js', path.join(DIST,'assets/calculator.js'));
 
 const urls = ['/','/about/'];
 homePage(); aboutPage(); notFound();
+urls.push(privacyPage(), termsPage(), contactPage());
 statesData.forEach(s => urls.push(statePage(s)));
 statesData.forEach(s => SALARIES.forEach(a => urls.push(salaryPage(a, s))));
 
