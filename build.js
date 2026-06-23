@@ -9,6 +9,9 @@ const YEAR = 2026;
 const fed = JSON.parse(fs.readFileSync('data/federal.json'));
 const statesData = JSON.parse(fs.readFileSync('data/states.json')).states;
 const SALARIES = [50000, 60000, 75000, 100000, 150000];
+const statesBySlug = {}; statesData.forEach(s => statesBySlug[s.slug] = s);
+const HOURLY_RATES = [15, 18, 20, 22, 25, 30, 35, 40, 45, 50, 60, 75];
+const COMPARE_ANCHORS = ['california','texas','new-york','florida','washington','illinois'];
 const DIST = process.env.OUT || 'dist';
 
 const usd = n => '$' + Math.round(n).toLocaleString('en-US');
@@ -186,6 +189,10 @@ ${adUnit()}
 <p>Choose your state for a dedicated calculator and breakdown. States marked ★ have no state income tax.</p>
 <div class="statelist">${list}</div>
 ${cta()}
+<h2>Salary tools &amp; comparisons</h2>
+<p>Convert an hourly wage to an annual salary, or compare take-home pay between states.</p>
+<div class="chips">${[15,20,25,30,40,50].map(r=>`<a href="/hourly-to-salary/${r}-per-hour/">$${r}/hour to salary</a>`).join('')}</div>
+<div class="chips"><a href="/compare/california-vs-texas/">California vs Texas</a> <a href="/compare/new-york-vs-florida/">New York vs Florida</a> <a href="/compare/california-vs-washington/">California vs Washington</a> <a href="/compare/illinois-vs-texas/">Illinois vs Texas</a></div>
 <h2>How the calculator works</h2>
 <p>We apply ${YEAR} IRS federal income-tax brackets and the standard deduction, then FICA payroll taxes — Social Security (6.2% up to ${usd(fed.fica.ssWageBase)}) and Medicare (1.45%, plus 0.9% above ${usd(200000)}) — and finally your state's income tax. Pre-tax 401(k) contributions reduce income-tax (but not FICA).</p>
 ${DISC}`;
@@ -243,6 +250,75 @@ function contactPage(){
   return '/contact/';
 }
 
+
+function hourlyPage(rate){
+  const annual = rate*2080;
+  const canonical = `/hourly-to-salary/${rate}-per-hour/`;
+  const title = `$${rate} an Hour Is How Much a Year? (After Taxes, ${YEAR})`;
+  const desc = `$${rate} an hour is $${annual.toLocaleString()} a year before taxes. See your take-home pay after federal, FICA, and state taxes with our free ${YEAR} calculator.`;
+  const allStatesMap = {}; statesData.forEach(s=>allStatesMap[s.slug]=s);
+  const jsonld = [{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
+    {"@type":"ListItem","position":2,"name":`$${rate}/hour to salary`,"item":SITE+canonical}]}];
+  const others = HOURLY_RATES.filter(r=>r!==rate).map(r=>`<a href="/hourly-to-salary/${r}-per-hour/">$${r}/hr</a>`).join('');
+  const body = `
+<p class="crumbs"><a href="/">Home</a> &#8250; $${rate} an hour to salary</p>
+<h1>$${rate} an Hour Is How Much a Year?</h1>
+<p class="lead">$${rate} per hour is <b>$${annual.toLocaleString()} per year</b> (40 hours/week &times; 52 weeks), before taxes.</p>
+<table class="breakdown">
+<tr><td>Hourly</td><td>$${rate.toLocaleString()}</td></tr>
+<tr><td>Weekly (40 hrs)</td><td>$${(rate*40).toLocaleString()}</td></tr>
+<tr><td>Bi-weekly</td><td>$${(rate*80).toLocaleString()}</td></tr>
+<tr><td>Monthly</td><td>$${Math.round(annual/12).toLocaleString()}</td></tr>
+<tr class="total"><td>Annual (gross)</td><td>$${annual.toLocaleString()}</td></tr>
+</table>
+${adUnit()}
+<h2>$${rate} an hour after taxes</h2>
+<p>Your take-home depends on your state and filing status. Use the calculator below &mdash; it&#39;s pre-filled with $${annual.toLocaleString()}.</p>
+${calcCard({ withStateSelector:true, defaultState:'california', defaultSalary:annual })}
+${cta()}
+<h2>Other hourly rates</h2>
+<div class="chips">${others}</div>
+${DISC}`;
+  write(`hourly-to-salary/${rate}-per-hour/index.html`, layout({ title, desc, canonical, jsonld, body, embed:`window.__ALLSTATES__=${JSON.stringify(allStatesMap)};window.__STATE__=${JSON.stringify(allStatesMap['california'])};` }));
+  return canonical;
+}
+
+function comparePage(a, b){
+  const amounts=[50000,75000,100000];
+  const rows = amounts.map(amt=>{
+    const ra=TaxEngine.compute({gross:amt,status:'single',frequency:'biweekly',pct401k:0},fed,a);
+    const rb=TaxEngine.compute({gross:amt,status:'single',frequency:'biweekly',pct401k:0},fed,b);
+    const diff=ra.takeHome-rb.takeHome;
+    return {amt,ra,rb,diff,winner: diff===0?'tie':(diff>0?a.name:b.name)};
+  });
+  const mid=rows[1];
+  const canonical=`/compare/${a.slug}-vs-${b.slug}/`;
+  const title=`${a.name} vs ${b.name} Take-Home Pay (${YEAR})`;
+  const desc=`Compare take-home pay in ${a.name} vs ${b.name} for ${YEAR}. On $75,000, ${mid.winner==='tie'?'both are about equal':mid.winner+' keeps about $'+Math.abs(Math.round(mid.diff)).toLocaleString()+' more per year'}.`;
+  const jsonld=[{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
+    {"@type":"ListItem","position":2,"name":`${a.name} vs ${b.name}`,"item":SITE+canonical}]}];
+  const tr = rows.map(r=>`<tr><td>$${r.amt.toLocaleString()}</td><td>${usd(r.ra.takeHome)}</td><td>${usd(r.rb.takeHome)}</td><td>${r.diff>=0?'+':'-'}${usd(Math.abs(r.diff))} (${esc(r.winner)})</td></tr>`).join('');
+  const body=`
+<p class="crumbs"><a href="/">Home</a> &#8250; ${esc(a.name)} vs ${esc(b.name)}</p>
+<h1>${a.name} vs ${b.name}: Take-Home Pay (${YEAR})</h1>
+<p class="lead">On a $75,000 salary, a single filer keeps about <b>${usd(Math.abs(mid.diff))}</b> ${mid.winner==='tie'?'the same in both':'more in '+esc(mid.winner)} per year.</p>
+${adUnit()}
+<h2>Side-by-side comparison (take-home after taxes)</h2>
+<table class="breakdown">
+<tr><td><b>Gross salary</b></td><td><b>${esc(a.name)}</b></td><td><b>${esc(b.name)}</b></td><td><b>Difference</b></td></tr>
+${tr}
+</table>
+<p>${esc(a.name)} ${a.type==='none'?'has <b>no state income tax</b>':'levies a state income tax'}; ${esc(b.name)} ${b.type==='none'?'has <b>no state income tax</b>':'levies a state income tax'}. Figures are single-filer estimates after federal, FICA, and state taxes; local taxes excluded.</p>
+${cta()}
+<h2>Full calculators</h2>
+<div class="chips"><a href="/take-home-pay/${a.slug}/">${esc(a.name)} calculator</a> <a href="/take-home-pay/${b.slug}/">${esc(b.name)} calculator</a></div>
+${DISC}`;
+  write(`compare/${a.slug}-vs-${b.slug}/index.html`, layout({ title, desc, canonical, jsonld, body }));
+  return canonical;
+}
+
 // ---------- Build ----------
 rmrf(DIST);
 fs.mkdirSync(DIST, { recursive:true });
@@ -256,6 +332,14 @@ homePage(); aboutPage(); notFound();
 urls.push(privacyPage(), termsPage(), contactPage());
 statesData.forEach(s => urls.push(statePage(s)));
 statesData.forEach(s => SALARIES.forEach(a => urls.push(salaryPage(a, s))));
+HOURLY_RATES.forEach(r => urls.push(hourlyPage(r)));
+const seenCmp = new Set();
+COMPARE_ANCHORS.forEach(a => statesData.forEach(st => {
+  if (st.slug === a) return;
+  const key = [a, st.slug].sort().join('|');
+  if (seenCmp.has(key)) return; seenCmp.add(key);
+  urls.push(comparePage(statesBySlug[a], st));
+}));
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u=>`<url><loc>${SITE}${u}</loc><changefreq>monthly</changefreq></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(DIST,'sitemap.xml'), sitemap);
