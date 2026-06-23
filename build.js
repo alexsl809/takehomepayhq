@@ -237,7 +237,7 @@ function termsPage(){
 }
 function contactPage(){
   const body = `<h1>Contact</h1><p class="lead">Questions, corrections, or feedback about ${esc(NAME)}?</p>`+
-    `<p>Email: <a href="mailto:hello@takehomepayhq.com">hello@takehomepayhq.com</a></p>`+
+    `<p>Email: <a href="mailto:merchant2210@gmail.com">merchant2210@gmail.com</a></p>`+
     `<p>We welcome reports of any tax-data inaccuracies so we can keep the calculator reliable.</p>`;
   write('contact/index.html', layout({ title:`Contact — ${NAME}`, desc:`Contact ${NAME}`, canonical:'/contact/', body }));
   return '/contact/';
