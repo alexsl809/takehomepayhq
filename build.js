@@ -23,6 +23,7 @@ function write(rel, html){ const f = path.join(DIST, rel); fs.mkdirSync(path.dir
 function headScripts() {
   let h = '';
   if (cfg.gscVerification) h += `<meta name="google-site-verification" content="${esc(cfg.gscVerification)}">\n`;
+  if (cfg.impactVerification) h += `<meta name="impact-site-verification" value="${esc(cfg.impactVerification)}">\n`;
   if (cfg.ga4) h += `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(cfg.ga4)}"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${esc(cfg.ga4)}');</script>\n`;
   if (cfg.adsenseClient) h += `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(cfg.adsenseClient)}" crossorigin="anonymous"></script>\n`;
   return h;
