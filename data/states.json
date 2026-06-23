@@ -1,0 +1,1082 @@
+{
+ "note": "State individual income tax, single-filer, tax year 2026. Source: Tax Foundation (2026 state income tax rates & brackets, IRS Rev. Proc. 2025-32 conformity).",
+ "source": "https://taxfoundation.org/data/all/state/state-income-tax-rates-2026/",
+ "limitations": "Single-filer brackets are applied to all filing statuses (married/HoH use single brackets as an approximation). Local/municipal income taxes (e.g., NYC, Maryland counties, Ohio cities, PA local) are NOT included. Personal exemptions modeled as deductions where applicable.",
+ "count": 51,
+ "states": [
+  {
+   "name": "Alabama",
+   "slug": "alabama",
+   "abbr": "AL",
+   "type": "progressive",
+   "stdDeduction": 3000,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.02
+    ],
+    [
+     500,
+     0.04
+    ],
+    [
+     3000,
+     0.05
+    ]
+   ]
+  },
+  {
+   "name": "Alaska",
+   "slug": "alaska",
+   "abbr": "AK",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  },
+  {
+   "name": "Arizona",
+   "slug": "arizona",
+   "abbr": "AZ",
+   "type": "flat",
+   "stdDeduction": 8350,
+   "verified": true,
+   "rate": 0.025
+  },
+  {
+   "name": "Arkansas",
+   "slug": "arkansas",
+   "abbr": "AR",
+   "type": "progressive",
+   "stdDeduction": 2470,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.02
+    ],
+    [
+     4600,
+     0.039
+    ]
+   ]
+  },
+  {
+   "name": "California",
+   "slug": "california",
+   "abbr": "CA",
+   "type": "progressive",
+   "stdDeduction": 5540,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.01
+    ],
+    [
+     11079,
+     0.02
+    ],
+    [
+     26264,
+     0.04
+    ],
+    [
+     41452,
+     0.06
+    ],
+    [
+     57542,
+     0.08
+    ],
+    [
+     72724,
+     0.093
+    ],
+    [
+     371479,
+     0.103
+    ],
+    [
+     445771,
+     0.113
+    ],
+    [
+     742953,
+     0.123
+    ],
+    [
+     1000000,
+     0.133
+    ]
+   ]
+  },
+  {
+   "name": "Colorado",
+   "slug": "colorado",
+   "abbr": "CO",
+   "type": "flat",
+   "stdDeduction": 16100,
+   "verified": true,
+   "rate": 0.044
+  },
+  {
+   "name": "Connecticut",
+   "slug": "connecticut",
+   "abbr": "CT",
+   "type": "progressive",
+   "stdDeduction": 0,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.02
+    ],
+    [
+     10000,
+     0.045
+    ],
+    [
+     50000,
+     0.055
+    ],
+    [
+     100000,
+     0.06
+    ],
+    [
+     200000,
+     0.065
+    ],
+    [
+     250000,
+     0.069
+    ],
+    [
+     500000,
+     0.0699
+    ]
+   ],
+   "note": "No standard deduction; personal exemption $15,000 phases out — not modeled, so tax may be slightly overstated for low earners."
+  },
+  {
+   "name": "Delaware",
+   "slug": "delaware",
+   "abbr": "DE",
+   "type": "progressive",
+   "stdDeduction": 3250,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     2000,
+     0.022
+    ],
+    [
+     5000,
+     0.039
+    ],
+    [
+     10000,
+     0.048
+    ],
+    [
+     20000,
+     0.052
+    ],
+    [
+     25000,
+     0.0555
+    ],
+    [
+     60000,
+     0.066
+    ]
+   ]
+  },
+  {
+   "name": "District of Columbia",
+   "slug": "district-of-columbia",
+   "abbr": "DC",
+   "type": "progressive",
+   "stdDeduction": 16100,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.04
+    ],
+    [
+     10000,
+     0.06
+    ],
+    [
+     40000,
+     0.065
+    ],
+    [
+     60000,
+     0.085
+    ],
+    [
+     250000,
+     0.0925
+    ],
+    [
+     500000,
+     0.0975
+    ],
+    [
+     1000000,
+     0.1075
+    ]
+   ]
+  },
+  {
+   "name": "Florida",
+   "slug": "florida",
+   "abbr": "FL",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  },
+  {
+   "name": "Georgia",
+   "slug": "georgia",
+   "abbr": "GA",
+   "type": "flat",
+   "stdDeduction": 12000,
+   "verified": true,
+   "rate": 0.0519
+  },
+  {
+   "name": "Hawaii",
+   "slug": "hawaii",
+   "abbr": "HI",
+   "type": "progressive",
+   "stdDeduction": 4400,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.014
+    ],
+    [
+     9600,
+     0.032
+    ],
+    [
+     14400,
+     0.055
+    ],
+    [
+     19200,
+     0.064
+    ],
+    [
+     24000,
+     0.068
+    ],
+    [
+     36000,
+     0.072
+    ],
+    [
+     48000,
+     0.076
+    ],
+    [
+     125000,
+     0.079
+    ],
+    [
+     175000,
+     0.0825
+    ],
+    [
+     225000,
+     0.09
+    ],
+    [
+     275000,
+     0.1
+    ],
+    [
+     325000,
+     0.11
+    ]
+   ]
+  },
+  {
+   "name": "Idaho",
+   "slug": "idaho",
+   "abbr": "ID",
+   "type": "progressive",
+   "stdDeduction": 16100,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     4811,
+     0.053
+    ]
+   ],
+   "note": "Flat 5.3% above $4,811 taxable; conforms to federal standard deduction."
+  },
+  {
+   "name": "Illinois",
+   "slug": "illinois",
+   "abbr": "IL",
+   "type": "flat",
+   "stdDeduction": 2925,
+   "verified": true,
+   "rate": 0.0495,
+   "note": "Personal exemption $2,925 modeled as deduction."
+  },
+  {
+   "name": "Indiana",
+   "slug": "indiana",
+   "abbr": "IN",
+   "type": "flat",
+   "stdDeduction": 1000,
+   "verified": true,
+   "rate": 0.0295,
+   "note": "Personal exemption $1,000 modeled as deduction."
+  },
+  {
+   "name": "Iowa",
+   "slug": "iowa",
+   "abbr": "IA",
+   "type": "flat",
+   "stdDeduction": 16100,
+   "verified": true,
+   "rate": 0.038
+  },
+  {
+   "name": "Kansas",
+   "slug": "kansas",
+   "abbr": "KS",
+   "type": "progressive",
+   "stdDeduction": 3605,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.052
+    ],
+    [
+     23000,
+     0.0558
+    ]
+   ]
+  },
+  {
+   "name": "Kentucky",
+   "slug": "kentucky",
+   "abbr": "KY",
+   "type": "flat",
+   "stdDeduction": 3360,
+   "verified": true,
+   "rate": 0.035
+  },
+  {
+   "name": "Louisiana",
+   "slug": "louisiana",
+   "abbr": "LA",
+   "type": "flat",
+   "stdDeduction": 12875,
+   "verified": true,
+   "rate": 0.03
+  },
+  {
+   "name": "Maine",
+   "slug": "maine",
+   "abbr": "ME",
+   "type": "progressive",
+   "stdDeduction": 8350,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.058
+    ],
+    [
+     27399,
+     0.0675
+    ],
+    [
+     64849,
+     0.0715
+    ]
+   ]
+  },
+  {
+   "name": "Maryland",
+   "slug": "maryland",
+   "abbr": "MD",
+   "type": "progressive",
+   "stdDeduction": 3350,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.02
+    ],
+    [
+     1000,
+     0.03
+    ],
+    [
+     2000,
+     0.04
+    ],
+    [
+     3000,
+     0.0475
+    ],
+    [
+     100000,
+     0.05
+    ],
+    [
+     125000,
+     0.0525
+    ],
+    [
+     150000,
+     0.055
+    ],
+    [
+     250000,
+     0.0575
+    ],
+    [
+     500000,
+     0.0625
+    ],
+    [
+     1000000,
+     0.065
+    ]
+   ],
+   "note": "Local county income taxes (~2.25-3.2%) not included."
+  },
+  {
+   "name": "Massachusetts",
+   "slug": "massachusetts",
+   "abbr": "MA",
+   "type": "progressive",
+   "stdDeduction": 4400,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.05
+    ],
+    [
+     1083150,
+     0.09
+    ]
+   ],
+   "note": "Personal exemption $4,400 modeled as deduction."
+  },
+  {
+   "name": "Michigan",
+   "slug": "michigan",
+   "abbr": "MI",
+   "type": "flat",
+   "stdDeduction": 5900,
+   "verified": true,
+   "rate": 0.0425,
+   "note": "Personal exemption $5,900 modeled as deduction."
+  },
+  {
+   "name": "Minnesota",
+   "slug": "minnesota",
+   "abbr": "MN",
+   "type": "progressive",
+   "stdDeduction": 15300,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0535
+    ],
+    [
+     33310,
+     0.068
+    ],
+    [
+     109430,
+     0.0785
+    ],
+    [
+     203150,
+     0.0985
+    ]
+   ]
+  },
+  {
+   "name": "Mississippi",
+   "slug": "mississippi",
+   "abbr": "MS",
+   "type": "progressive",
+   "stdDeduction": 2300,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     10000,
+     0.04
+    ]
+   ],
+   "note": "Flat 4% above $10,000 taxable."
+  },
+  {
+   "name": "Missouri",
+   "slug": "missouri",
+   "abbr": "MO",
+   "type": "progressive",
+   "stdDeduction": 16100,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     1348,
+     0.02
+    ],
+    [
+     2696,
+     0.025
+    ],
+    [
+     4044,
+     0.03
+    ],
+    [
+     5392,
+     0.035
+    ],
+    [
+     6740,
+     0.04
+    ],
+    [
+     8088,
+     0.045
+    ],
+    [
+     9436,
+     0.047
+    ]
+   ]
+  },
+  {
+   "name": "Montana",
+   "slug": "montana",
+   "abbr": "MT",
+   "type": "progressive",
+   "stdDeduction": 16100,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.047
+    ],
+    [
+     47500,
+     0.0565
+    ]
+   ]
+  },
+  {
+   "name": "Nebraska",
+   "slug": "nebraska",
+   "abbr": "NE",
+   "type": "progressive",
+   "stdDeduction": 8850,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0246
+    ],
+    [
+     4130,
+     0.0351
+    ],
+    [
+     24760,
+     0.0455
+    ]
+   ]
+  },
+  {
+   "name": "Nevada",
+   "slug": "nevada",
+   "abbr": "NV",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  },
+  {
+   "name": "New Hampshire",
+   "slug": "new-hampshire",
+   "abbr": "NH",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true,
+   "note": "No wage income tax (interest/dividends tax repealed 2025)."
+  },
+  {
+   "name": "New Jersey",
+   "slug": "new-jersey",
+   "abbr": "NJ",
+   "type": "progressive",
+   "stdDeduction": 1000,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.014
+    ],
+    [
+     20000,
+     0.0175
+    ],
+    [
+     35000,
+     0.035
+    ],
+    [
+     40000,
+     0.0553
+    ],
+    [
+     75000,
+     0.0637
+    ],
+    [
+     500000,
+     0.0897
+    ],
+    [
+     1000000,
+     0.1075
+    ]
+   ],
+   "note": "Personal exemption $1,000 modeled as deduction."
+  },
+  {
+   "name": "New Mexico",
+   "slug": "new-mexico",
+   "abbr": "NM",
+   "type": "progressive",
+   "stdDeduction": 16100,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.015
+    ],
+    [
+     5500,
+     0.032
+    ],
+    [
+     16500,
+     0.043
+    ],
+    [
+     33500,
+     0.047
+    ],
+    [
+     66500,
+     0.049
+    ],
+    [
+     210000,
+     0.059
+    ]
+   ]
+  },
+  {
+   "name": "New York",
+   "slug": "new-york",
+   "abbr": "NY",
+   "type": "progressive",
+   "stdDeduction": 8000,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.039
+    ],
+    [
+     8500,
+     0.044
+    ],
+    [
+     11700,
+     0.0515
+    ],
+    [
+     13900,
+     0.054
+    ],
+    [
+     80650,
+     0.059
+    ],
+    [
+     215400,
+     0.0685
+    ],
+    [
+     1077550,
+     0.0965
+    ],
+    [
+     5000000,
+     0.103
+    ],
+    [
+     25000000,
+     0.109
+    ]
+   ],
+   "note": "NYC/Yonkers local income tax not included."
+  },
+  {
+   "name": "North Carolina",
+   "slug": "north-carolina",
+   "abbr": "NC",
+   "type": "flat",
+   "stdDeduction": 12750,
+   "verified": true,
+   "rate": 0.0399
+  },
+  {
+   "name": "North Dakota",
+   "slug": "north-dakota",
+   "abbr": "ND",
+   "type": "progressive",
+   "stdDeduction": 16100,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     48475,
+     0.0195
+    ],
+    [
+     244825,
+     0.025
+    ]
+   ],
+   "note": "First $48,475 untaxed."
+  },
+  {
+   "name": "Ohio",
+   "slug": "ohio",
+   "abbr": "OH",
+   "type": "progressive",
+   "stdDeduction": 2400,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     26050,
+     0.0275
+    ]
+   ],
+   "note": "Flat 2.75% above $26,050; personal exemption modeled as deduction. Municipal income taxes not included."
+  },
+  {
+   "name": "Oklahoma",
+   "slug": "oklahoma",
+   "abbr": "OK",
+   "type": "progressive",
+   "stdDeduction": 6350,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     3750,
+     0.025
+    ],
+    [
+     4900,
+     0.035
+    ],
+    [
+     7200,
+     0.045
+    ]
+   ]
+  },
+  {
+   "name": "Oregon",
+   "slug": "oregon",
+   "abbr": "OR",
+   "type": "progressive",
+   "stdDeduction": 2910,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0475
+    ],
+    [
+     4550,
+     0.0675
+    ],
+    [
+     11400,
+     0.0875
+    ],
+    [
+     125000,
+     0.099
+    ]
+   ]
+  },
+  {
+   "name": "Pennsylvania",
+   "slug": "pennsylvania",
+   "abbr": "PA",
+   "type": "flat",
+   "stdDeduction": 0,
+   "verified": true,
+   "rate": 0.0307,
+   "note": "No standard deduction. Local earned-income taxes not included."
+  },
+  {
+   "name": "Rhode Island",
+   "slug": "rhode-island",
+   "abbr": "RI",
+   "type": "progressive",
+   "stdDeduction": 11200,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0375
+    ],
+    [
+     82050,
+     0.0475
+    ],
+    [
+     186450,
+     0.0599
+    ]
+   ]
+  },
+  {
+   "name": "South Carolina",
+   "slug": "south-carolina",
+   "abbr": "SC",
+   "type": "progressive",
+   "stdDeduction": 8350,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0
+    ],
+    [
+     3640,
+     0.03
+    ],
+    [
+     18230,
+     0.06
+    ]
+   ],
+   "note": "Top rate scheduled to revert to 6.2% on 2026-07-01."
+  },
+  {
+   "name": "South Dakota",
+   "slug": "south-dakota",
+   "abbr": "SD",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  },
+  {
+   "name": "Tennessee",
+   "slug": "tennessee",
+   "abbr": "TN",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  },
+  {
+   "name": "Texas",
+   "slug": "texas",
+   "abbr": "TX",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  },
+  {
+   "name": "Utah",
+   "slug": "utah",
+   "abbr": "UT",
+   "type": "flat",
+   "stdDeduction": 0,
+   "verified": true,
+   "rate": 0.045,
+   "note": "Standard deduction is a 6% credit (~$966 single), not modeled — state tax slightly overstated."
+  },
+  {
+   "name": "Vermont",
+   "slug": "vermont",
+   "abbr": "VT",
+   "type": "progressive",
+   "stdDeduction": 7650,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0335
+    ],
+    [
+     49400,
+     0.066
+    ],
+    [
+     119700,
+     0.076
+    ],
+    [
+     249700,
+     0.0875
+    ]
+   ]
+  },
+  {
+   "name": "Virginia",
+   "slug": "virginia",
+   "abbr": "VA",
+   "type": "progressive",
+   "stdDeduction": 8750,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.02
+    ],
+    [
+     3000,
+     0.03
+    ],
+    [
+     5000,
+     0.05
+    ],
+    [
+     17000,
+     0.0575
+    ]
+   ]
+  },
+  {
+   "name": "Washington",
+   "slug": "washington",
+   "abbr": "WA",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true,
+   "note": "No wage income tax (capital-gains tax only)."
+  },
+  {
+   "name": "West Virginia",
+   "slug": "west-virginia",
+   "abbr": "WV",
+   "type": "progressive",
+   "stdDeduction": 2000,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.0222
+    ],
+    [
+     10000,
+     0.0296
+    ],
+    [
+     25000,
+     0.0333
+    ],
+    [
+     40000,
+     0.0444
+    ],
+    [
+     60000,
+     0.0482
+    ]
+   ],
+   "note": "Personal exemption $2,000 modeled as deduction."
+  },
+  {
+   "name": "Wisconsin",
+   "slug": "wisconsin",
+   "abbr": "WI",
+   "type": "progressive",
+   "stdDeduction": 13960,
+   "verified": true,
+   "brackets": [
+    [
+     0,
+     0.035
+    ],
+    [
+     15110,
+     0.044
+    ],
+    [
+     51950,
+     0.053
+    ],
+    [
+     332720,
+     0.0765
+    ]
+   ]
+  },
+  {
+   "name": "Wyoming",
+   "slug": "wyoming",
+   "abbr": "WY",
+   "type": "none",
+   "stdDeduction": 0,
+   "verified": true
+  }
+ ]
+}

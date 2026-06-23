@@ -1,0 +1,200 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Take-Home Pay Calculator 2026 — Demo</title><style>:root{--navy:#1f4e79;--blue:#2e75b6;--green:#1f9d55;--bg:#f7f9fc;--card:#fff;--line:#e3e8ef;--ink:#1a2233;--muted:#5b6573}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+header.site{background:var(--navy);color:#fff}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+header.site a{color:#fff;font-weight:700;font-size:18px}
+header.site nav a{font-weight:500;font-size:14px;margin-left:18px;opacity:.9}
+h1{font-size:30px;line-height:1.2;margin:24px 0 6px}
+h2{font-size:22px;margin:32px 0 10px;color:var(--navy)}
+h3{font-size:17px;margin:20px 0 6px}
+.lead{color:var(--muted);font-size:16px;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:12px 0 4px}
+input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:15px;background:#fff}
+input:focus,select:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.result-big{font-size:38px;font-weight:800;color:var(--green);margin:4px 0}
+.result-sub{color:var(--muted);font-size:14px}
+.breakdown{margin-top:8px;width:100%;border-collapse:collapse}
+.breakdown td{padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.breakdown td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.breakdown tr.total td{font-weight:800;border-bottom:none;font-size:16px}
+.bars{margin:14px 0}
+.bar-row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+.bar-row span:first-child{width:90px;color:var(--muted)}
+.bar-track{flex:1;background:#eef2f7;border-radius:6px;height:12px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px}
+.bar-fill.takehome{background:var(--green)}.bar-fill.federal{background:#e06c4f}.bar-fill.fica{background:#e0a93f}.bar-fill.state{background:var(--blue)}
+.ad{background:#fbfcfe;border:1px dashed #cfd8e3;border-radius:10px;color:#9aa6b5;text-align:center;padding:20px;margin:22px 0;font-size:13px}
+.cta{background:linear-gradient(90deg,#eef5ff,#f5fbff);border:1px solid #cfe0f5;border-radius:12px;padding:16px 18px;margin:22px 0}
+.cta b{color:var(--navy)}
+.statelist{columns:4;column-gap:18px;font-size:14px;margin:10px 0}
+@media(max-width:760px){.statelist{columns:2}}
+.statelist a{display:block;padding:3px 0}
+.chips a{display:inline-block;background:#eef2f7;border-radius:20px;padding:5px 12px;margin:4px 4px 0 0;font-size:13px}
+.faq h3{margin-bottom:2px}.faq p{margin:0 0 14px;color:#33404f}
+.disclaimer{background:#fff8e6;border:1px solid #f0e2b8;border-radius:10px;padding:12px 14px;font-size:13px;color:#6b5e2e;margin:20px 0}
+footer.site{background:#10243a;color:#aeb9c7;margin-top:40px;padding:26px 0;font-size:13px}
+footer.site a{color:#cdd8e6}
+.crumbs{font-size:13px;color:var(--muted);margin:16px 0 0}
+.tag{display:inline-block;background:#eaf3ea;color:#1f7a44;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600}
+</style></head><body>
+<header class="site"><div class="wrap"><a href="#">TakeHomePay</a><nav><a href="#">Demo (offline)</a></nav></div></header>
+<main class="wrap"><h1>Take-Home Pay Calculator (2026)</h1><p class="lead">Offline demo with verified 2026 federal + state data. Change salary, state, status — recomputes live.</p>
+<div class="grid"><div class="card"><h3 style="margin-top:0">Your details</h3>
+<label for="thp-salary">Annual gross salary ($)</label><input id="thp-salary" type="number" value="75000" min="0" step="1000">
+<label for="thp-state">State</label><select id="thp-state"><option value="alabama">Alabama</option><option value="alaska">Alaska ★</option><option value="arizona">Arizona</option><option value="arkansas">Arkansas</option><option value="california" selected>California</option><option value="colorado">Colorado</option><option value="connecticut">Connecticut</option><option value="delaware">Delaware</option><option value="district-of-columbia">District of Columbia</option><option value="florida">Florida ★</option><option value="georgia">Georgia</option><option value="hawaii">Hawaii</option><option value="idaho">Idaho</option><option value="illinois">Illinois</option><option value="indiana">Indiana</option><option value="iowa">Iowa</option><option value="kansas">Kansas</option><option value="kentucky">Kentucky</option><option value="louisiana">Louisiana</option><option value="maine">Maine</option><option value="maryland">Maryland</option><option value="massachusetts">Massachusetts</option><option value="michigan">Michigan</option><option value="minnesota">Minnesota</option><option value="mississippi">Mississippi</option><option value="missouri">Missouri</option><option value="montana">Montana</option><option value="nebraska">Nebraska</option><option value="nevada">Nevada ★</option><option value="new-hampshire">New Hampshire ★</option><option value="new-jersey">New Jersey</option><option value="new-mexico">New Mexico</option><option value="new-york">New York</option><option value="north-carolina">North Carolina</option><option value="north-dakota">North Dakota</option><option value="ohio">Ohio</option><option value="oklahoma">Oklahoma</option><option value="oregon">Oregon</option><option value="pennsylvania">Pennsylvania</option><option value="rhode-island">Rhode Island</option><option value="south-carolina">South Carolina</option><option value="south-dakota">South Dakota ★</option><option value="tennessee">Tennessee ★</option><option value="texas">Texas ★</option><option value="utah">Utah</option><option value="vermont">Vermont</option><option value="virginia">Virginia</option><option value="washington">Washington ★</option><option value="west-virginia">West Virginia</option><option value="wisconsin">Wisconsin</option><option value="wyoming">Wyoming ★</option></select>
+<label for="thp-status">Filing status</label><select id="thp-status"><option value="single">Single</option><option value="married">Married filing jointly</option><option value="hoh">Head of household</option></select>
+<label for="thp-frequency">Pay frequency</label><select id="thp-frequency"><option value="biweekly">Bi-weekly (26/yr)</option><option value="weekly">Weekly (52/yr)</option><option value="semimonthly">Semi-monthly (24/yr)</option><option value="monthly">Monthly (12/yr)</option><option value="annual">Annual</option></select>
+<label for="thp-401k">401(k) contribution (% of gross)</label><input id="thp-401k" type="number" value="0" min="0" max="90" step="1"></div>
+<div class="card"><div class="result-sub">Estimated take-home pay (annual)</div><div class="result-big" id="r-takehome">$0</div>
+<div class="result-sub"><span id="r-percheck">$0</span> per paycheck · effective rate <span id="r-eff">0%</span></div>
+<div class="bars"><div class="bar-row"><span>Take-home</span><div class="bar-track"><div class="bar-fill takehome" id="bar-takehome"></div></div></div>
+<div class="bar-row"><span>Federal</span><div class="bar-track"><div class="bar-fill federal" id="bar-federal"></div></div></div>
+<div class="bar-row"><span>FICA</span><div class="bar-track"><div class="bar-fill fica" id="bar-fica"></div></div></div>
+<div class="bar-row"><span>State</span><div class="bar-track"><div class="bar-fill state" id="bar-state"></div></div></div></div>
+<table class="breakdown"><tr><td>Gross salary</td><td id="r-gross">$0</td></tr><tr><td>Federal income tax</td><td id="r-federal">$0</td></tr><tr><td>Social Security</td><td id="r-ss">$0</td></tr><tr><td>Medicare</td><td id="r-medicare">$0</td></tr><tr><td>State income tax</td><td id="r-state">$0</td></tr><tr><td>401(k) contribution</td><td id="r-401k">$0</td></tr><tr class="total"><td>Total tax</td><td id="r-total">$0</td></tr></table></div></div><div class="ad">Ad slot — AdSense / Ezoic / Raptive unit goes here (configured via config.json in the real build)</div>
+<div class="cta"><b>Keep more of your paycheck?</b> Compare tax software &amp; high-yield accounts. <a href="#" rel="sponsored nofollow">See options →</a></div>
+<div class="disclaimer"><b>Disclaimer:</b> 2026 estimates, not tax advice. Single-filer state brackets; local taxes (NYC, MD counties, OH/PA local) not included.</div></main>
+<footer class="site"><div class="wrap"><p>Offline demo · real build = 308 SEO pages. Sources: IRS, SSA, Tax Foundation.</p></div></footer>
+<script>// Shared tax engine — runs in Node (build) and the browser (client).
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.TaxEngine = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+
+  function progressiveTax(taxable, brackets) {
+    if (taxable <= 0) return 0;
+    var tax = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var lo = brackets[i][0];
+      var rate = brackets[i][1];
+      var hi = (i + 1 < brackets.length) ? brackets[i + 1][0] : Infinity;
+      if (taxable > lo) tax += (Math.min(taxable, hi) - lo) * rate;
+      else break;
+    }
+    return tax;
+  }
+
+  function stateTax(base, st) {
+    if (!st || st.type === 'none') return 0;
+    base = Math.max(0, base - (st.stdDeduction || 0));
+    if (st.type === 'flat') return base * st.rate;
+    if (st.type === 'progressive') return progressiveTax(base, st.brackets);
+    return 0;
+  }
+
+  var PERIODS = { annual: 1, monthly: 12, semimonthly: 24, biweekly: 26, weekly: 52 };
+
+  // input: { gross, status:'single'|'married'|'hoh', frequency, pct401k (0..1) }
+  function compute(input, fed, st) {
+    var gross = Math.max(0, +input.gross || 0);
+    var status = input.status || 'single';
+    var pct = Math.min(0.9, Math.max(0, +input.pct401k || 0));
+    var pre401k = gross * pct;
+
+    var stdDed = fed.standardDeduction[status] || fed.standardDeduction.single;
+    var fedTaxable = Math.max(0, gross - pre401k - stdDed);
+    var federalTax = progressiveTax(fedTaxable, fed.brackets[status] || fed.brackets.single);
+
+    var f = fed.fica;
+    var socialSecurity = Math.min(gross, f.ssWageBase) * f.ssRate;
+    var medicare = gross * f.medicareRate;
+    var addlThresh = f.addlMedicareThreshold[status] || f.addlMedicareThreshold.single;
+    medicare += Math.max(0, gross - addlThresh) * f.addlMedicareRate;
+    var fica = socialSecurity + medicare;
+
+    var stateBase = Math.max(0, gross - pre401k);
+    var stTax = stateTax(stateBase, st);
+
+    var totalTax = federalTax + fica + stTax;
+    var takeHome = gross - totalTax - pre401k; // 401k goes to retirement, not pocket
+    var periods = PERIODS[input.frequency] || 26;
+
+    return {
+      gross: gross,
+      pre401k: pre401k,
+      federalTax: federalTax,
+      socialSecurity: socialSecurity,
+      medicare: medicare,
+      fica: fica,
+      stateTax: stTax,
+      totalTax: totalTax,
+      takeHome: takeHome,
+      perPaycheck: takeHome / periods,
+      effectiveRate: gross > 0 ? totalTax / gross : 0,
+      periods: periods
+    };
+  }
+
+  return { compute: compute, progressiveTax: progressiveTax, stateTax: stateTax, PERIODS: PERIODS };
+});
+</script><script>window.__FED__={
+  "year": 2026,
+  "source": "IRS Revenue Procedure 2025-32 (via Tax Foundation, 2026 brackets); SSA 2026 wage base",
+  "verified": true,
+  "standardDeduction": { "single": 16100, "married": 32200, "hoh": 24150 },
+  "brackets": {
+    "single":  [[0,0.10],[12400,0.12],[50400,0.22],[105700,0.24],[201775,0.32],[256225,0.35],[640600,0.37]],
+    "married": [[0,0.10],[24800,0.12],[100800,0.22],[211400,0.24],[403550,0.32],[512450,0.35],[768700,0.37]],
+    "hoh":     [[0,0.10],[17700,0.12],[67450,0.22],[105700,0.24],[201775,0.32],[256200,0.35],[640600,0.37]]
+  },
+  "fica": {
+    "ssRate": 0.062,
+    "ssWageBase": 184500,
+    "medicareRate": 0.0145,
+    "addlMedicareRate": 0.009,
+    "addlMedicareThreshold": { "single": 200000, "married": 250000, "hoh": 200000 }
+  }
+}
+;window.__ALLSTATES__={"alabama":{"name":"Alabama","slug":"alabama","abbr":"AL","type":"progressive","stdDeduction":3000,"verified":true,"brackets":[[0,0.02],[500,0.04],[3000,0.05]]},"alaska":{"name":"Alaska","slug":"alaska","abbr":"AK","type":"none","stdDeduction":0,"verified":true},"arizona":{"name":"Arizona","slug":"arizona","abbr":"AZ","type":"flat","stdDeduction":8350,"verified":true,"rate":0.025},"arkansas":{"name":"Arkansas","slug":"arkansas","abbr":"AR","type":"progressive","stdDeduction":2470,"verified":true,"brackets":[[0,0.02],[4600,0.039]]},"california":{"name":"California","slug":"california","abbr":"CA","type":"progressive","stdDeduction":5540,"verified":true,"brackets":[[0,0.01],[11079,0.02],[26264,0.04],[41452,0.06],[57542,0.08],[72724,0.093],[371479,0.103],[445771,0.113],[742953,0.123],[1000000,0.133]]},"colorado":{"name":"Colorado","slug":"colorado","abbr":"CO","type":"flat","stdDeduction":16100,"verified":true,"rate":0.044},"connecticut":{"name":"Connecticut","slug":"connecticut","abbr":"CT","type":"progressive","stdDeduction":0,"verified":true,"brackets":[[0,0.02],[10000,0.045],[50000,0.055],[100000,0.06],[200000,0.065],[250000,0.069],[500000,0.0699]],"note":"No standard deduction; personal exemption $15,000 phases out — not modeled, so tax may be slightly overstated for low earners."},"delaware":{"name":"Delaware","slug":"delaware","abbr":"DE","type":"progressive","stdDeduction":3250,"verified":true,"brackets":[[0,0],[2000,0.022],[5000,0.039],[10000,0.048],[20000,0.052],[25000,0.0555],[60000,0.066]]},"district-of-columbia":{"name":"District of Columbia","slug":"district-of-columbia","abbr":"DC","type":"progressive","stdDeduction":16100,"verified":true,"brackets":[[0,0.04],[10000,0.06],[40000,0.065],[60000,0.085],[250000,0.0925],[500000,0.0975],[1000000,0.1075]]},"florida":{"name":"Florida","slug":"florida","abbr":"FL","type":"none","stdDeduction":0,"verified":true},"georgia":{"name":"Georgia","slug":"georgia","abbr":"GA","type":"flat","stdDeduction":12000,"verified":true,"rate":0.0519},"hawaii":{"name":"Hawaii","slug":"hawaii","abbr":"HI","type":"progressive","stdDeduction":4400,"verified":true,"brackets":[[0,0.014],[9600,0.032],[14400,0.055],[19200,0.064],[24000,0.068],[36000,0.072],[48000,0.076],[125000,0.079],[175000,0.0825],[225000,0.09],[275000,0.1],[325000,0.11]]},"idaho":{"name":"Idaho","slug":"idaho","abbr":"ID","type":"progressive","stdDeduction":16100,"verified":true,"brackets":[[0,0],[4811,0.053]],"note":"Flat 5.3% above $4,811 taxable; conforms to federal standard deduction."},"illinois":{"name":"Illinois","slug":"illinois","abbr":"IL","type":"flat","stdDeduction":2925,"verified":true,"rate":0.0495,"note":"Personal exemption $2,925 modeled as deduction."},"indiana":{"name":"Indiana","slug":"indiana","abbr":"IN","type":"flat","stdDeduction":1000,"verified":true,"rate":0.0295,"note":"Personal exemption $1,000 modeled as deduction."},"iowa":{"name":"Iowa","slug":"iowa","abbr":"IA","type":"flat","stdDeduction":16100,"verified":true,"rate":0.038},"kansas":{"name":"Kansas","slug":"kansas","abbr":"KS","type":"progressive","stdDeduction":3605,"verified":true,"brackets":[[0,0.052],[23000,0.0558]]},"kentucky":{"name":"Kentucky","slug":"kentucky","abbr":"KY","type":"flat","stdDeduction":3360,"verified":true,"rate":0.035},"louisiana":{"name":"Louisiana","slug":"louisiana","abbr":"LA","type":"flat","stdDeduction":12875,"verified":true,"rate":0.03},"maine":{"name":"Maine","slug":"maine","abbr":"ME","type":"progressive","stdDeduction":8350,"verified":true,"brackets":[[0,0.058],[27399,0.0675],[64849,0.0715]]},"maryland":{"name":"Maryland","slug":"maryland","abbr":"MD","type":"progressive","stdDeduction":3350,"verified":true,"brackets":[[0,0.02],[1000,0.03],[2000,0.04],[3000,0.0475],[100000,0.05],[125000,0.0525],[150000,0.055],[250000,0.0575],[500000,0.0625],[1000000,0.065]],"note":"Local county income taxes (~2.25-3.2%) not included."},"massachusetts":{"name":"Massachusetts","slug":"massachusetts","abbr":"MA","type":"progressive","stdDeduction":4400,"verified":true,"brackets":[[0,0.05],[1083150,0.09]],"note":"Personal exemption $4,400 modeled as deduction."},"michigan":{"name":"Michigan","slug":"michigan","abbr":"MI","type":"flat","stdDeduction":5900,"verified":true,"rate":0.0425,"note":"Personal exemption $5,900 modeled as deduction."},"minnesota":{"name":"Minnesota","slug":"minnesota","abbr":"MN","type":"progressive","stdDeduction":15300,"verified":true,"brackets":[[0,0.0535],[33310,0.068],[109430,0.0785],[203150,0.0985]]},"mississippi":{"name":"Mississippi","slug":"mississippi","abbr":"MS","type":"progressive","stdDeduction":2300,"verified":true,"brackets":[[0,0],[10000,0.04]],"note":"Flat 4% above $10,000 taxable."},"missouri":{"name":"Missouri","slug":"missouri","abbr":"MO","type":"progressive","stdDeduction":16100,"verified":true,"brackets":[[0,0],[1348,0.02],[2696,0.025],[4044,0.03],[5392,0.035],[6740,0.04],[8088,0.045],[9436,0.047]]},"montana":{"name":"Montana","slug":"montana","abbr":"MT","type":"progressive","stdDeduction":16100,"verified":true,"brackets":[[0,0.047],[47500,0.0565]]},"nebraska":{"name":"Nebraska","slug":"nebraska","abbr":"NE","type":"progressive","stdDeduction":8850,"verified":true,"brackets":[[0,0.0246],[4130,0.0351],[24760,0.0455]]},"nevada":{"name":"Nevada","slug":"nevada","abbr":"NV","type":"none","stdDeduction":0,"verified":true},"new-hampshire":{"name":"New Hampshire","slug":"new-hampshire","abbr":"NH","type":"none","stdDeduction":0,"verified":true,"note":"No wage income tax (interest/dividends tax repealed 2025)."},"new-jersey":{"name":"New Jersey","slug":"new-jersey","abbr":"NJ","type":"progressive","stdDeduction":1000,"verified":true,"brackets":[[0,0.014],[20000,0.0175],[35000,0.035],[40000,0.0553],[75000,0.0637],[500000,0.0897],[1000000,0.1075]],"note":"Personal exemption $1,000 modeled as deduction."},"new-mexico":{"name":"New Mexico","slug":"new-mexico","abbr":"NM","type":"progressive","stdDeduction":16100,"verified":true,"brackets":[[0,0.015],[5500,0.032],[16500,0.043],[33500,0.047],[66500,0.049],[210000,0.059]]},"new-york":{"name":"New York","slug":"new-york","abbr":"NY","type":"progressive","stdDeduction":8000,"verified":true,"brackets":[[0,0.039],[8500,0.044],[11700,0.0515],[13900,0.054],[80650,0.059],[215400,0.0685],[1077550,0.0965],[5000000,0.103],[25000000,0.109]],"note":"NYC/Yonkers local income tax not included."},"north-carolina":{"name":"North Carolina","slug":"north-carolina","abbr":"NC","type":"flat","stdDeduction":12750,"verified":true,"rate":0.0399},"north-dakota":{"name":"North Dakota","slug":"north-dakota","abbr":"ND","type":"progressive","stdDeduction":16100,"verified":true,"brackets":[[0,0],[48475,0.0195],[244825,0.025]],"note":"First $48,475 untaxed."},"ohio":{"name":"Ohio","slug":"ohio","abbr":"OH","type":"progressive","stdDeduction":2400,"verified":true,"brackets":[[0,0],[26050,0.0275]],"note":"Flat 2.75% above $26,050; personal exemption modeled as deduction. Municipal income taxes not included."},"oklahoma":{"name":"Oklahoma","slug":"oklahoma","abbr":"OK","type":"progressive","stdDeduction":6350,"verified":true,"brackets":[[0,0],[3750,0.025],[4900,0.035],[7200,0.045]]},"oregon":{"name":"Oregon","slug":"oregon","abbr":"OR","type":"progressive","stdDeduction":2910,"verified":true,"brackets":[[0,0.0475],[4550,0.0675],[11400,0.0875],[125000,0.099]]},"pennsylvania":{"name":"Pennsylvania","slug":"pennsylvania","abbr":"PA","type":"flat","stdDeduction":0,"verified":true,"rate":0.0307,"note":"No standard deduction. Local earned-income taxes not included."},"rhode-island":{"name":"Rhode Island","slug":"rhode-island","abbr":"RI","type":"progressive","stdDeduction":11200,"verified":true,"brackets":[[0,0.0375],[82050,0.0475],[186450,0.0599]]},"south-carolina":{"name":"South Carolina","slug":"south-carolina","abbr":"SC","type":"progressive","stdDeduction":8350,"verified":true,"brackets":[[0,0],[3640,0.03],[18230,0.06]],"note":"Top rate scheduled to revert to 6.2% on 2026-07-01."},"south-dakota":{"name":"South Dakota","slug":"south-dakota","abbr":"SD","type":"none","stdDeduction":0,"verified":true},"tennessee":{"name":"Tennessee","slug":"tennessee","abbr":"TN","type":"none","stdDeduction":0,"verified":true},"texas":{"name":"Texas","slug":"texas","abbr":"TX","type":"none","stdDeduction":0,"verified":true},"utah":{"name":"Utah","slug":"utah","abbr":"UT","type":"flat","stdDeduction":0,"verified":true,"rate":0.045,"note":"Standard deduction is a 6% credit (~$966 single), not modeled — state tax slightly overstated."},"vermont":{"name":"Vermont","slug":"vermont","abbr":"VT","type":"progressive","stdDeduction":7650,"verified":true,"brackets":[[0,0.0335],[49400,0.066],[119700,0.076],[249700,0.0875]]},"virginia":{"name":"Virginia","slug":"virginia","abbr":"VA","type":"progressive","stdDeduction":8750,"verified":true,"brackets":[[0,0.02],[3000,0.03],[5000,0.05],[17000,0.0575]]},"washington":{"name":"Washington","slug":"washington","abbr":"WA","type":"none","stdDeduction":0,"verified":true,"note":"No wage income tax (capital-gains tax only)."},"west-virginia":{"name":"West Virginia","slug":"west-virginia","abbr":"WV","type":"progressive","stdDeduction":2000,"verified":true,"brackets":[[0,0.0222],[10000,0.0296],[25000,0.0333],[40000,0.0444],[60000,0.0482]],"note":"Personal exemption $2,000 modeled as deduction."},"wisconsin":{"name":"Wisconsin","slug":"wisconsin","abbr":"WI","type":"progressive","stdDeduction":13960,"verified":true,"brackets":[[0,0.035],[15110,0.044],[51950,0.053],[332720,0.0765]]},"wyoming":{"name":"Wyoming","slug":"wyoming","abbr":"WY","type":"none","stdDeduction":0,"verified":true}};window.__STATE__={"name":"California","slug":"california","abbr":"CA","type":"progressive","stdDeduction":5540,"verified":true,"brackets":[[0,0.01],[11079,0.02],[26264,0.04],[41452,0.06],[57542,0.08],[72724,0.093],[371479,0.103],[445771,0.113],[742953,0.123],[1000000,0.133]]};</script><script>// Client-side calculator. Reads window.__FED__, window.__STATE__, window.__STATES__.
+(function () {
+  var fed = window.__FED__, st = window.__STATE__;
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+  var pct = function (n) { return (n * 100).toFixed(1) + '%'; };
+
+  function run() {
+    if (!fed) return;
+    var input = {
+      gross: parseFloat($('thp-salary').value) || 0,
+      status: $('thp-status').value,
+      frequency: $('thp-frequency').value,
+      pct401k: (parseFloat($('thp-401k').value) || 0) / 100
+    };
+    var stateObj = st;
+    var sel = $('thp-state');
+    if (sel && window.__ALLSTATES__) stateObj = window.__ALLSTATES__[sel.value] || st;
+    var r = TaxEngine.compute(input, fed, stateObj);
+
+    $('r-takehome').textContent = fmt(r.takeHome);
+    $('r-percheck').textContent = fmt(r.perPaycheck);
+    $('r-gross').textContent = fmt(r.gross);
+    $('r-federal').textContent = fmt(r.federalTax);
+    $('r-ss').textContent = fmt(r.socialSecurity);
+    $('r-medicare').textContent = fmt(r.medicare);
+    $('r-state').textContent = fmt(r.stateTax);
+    $('r-total').textContent = fmt(r.totalTax);
+    $('r-eff').textContent = pct(r.effectiveRate);
+    if ($('r-401k')) $('r-401k').textContent = fmt(r.pre401k);
+    // bar widths
+    var g = r.gross || 1;
+    function bar(id, v) { var el = $(id); if (el) el.style.width = Math.min(100, v / g * 100) + '%'; }
+    bar('bar-takehome', r.takeHome);
+    bar('bar-federal', r.federalTax);
+    bar('bar-fica', r.fica);
+    bar('bar-state', r.stateTax);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    ['thp-salary', 'thp-status', 'thp-frequency', 'thp-401k', 'thp-state'].forEach(function (id) {
+      var el = $(id); if (el) { el.addEventListener('input', run); el.addEventListener('change', run); }
+    });
+    run();
+  });
+})();
+</script></body></html>
