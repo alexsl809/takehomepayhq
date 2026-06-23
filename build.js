@@ -46,7 +46,7 @@ function layout({ title, desc, canonical, jsonld, body, embed }) {
 <link rel="canonical" href="${SITE}${canonical}">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website"><meta property="og:url" content="${SITE}${canonical}">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css">\n<link rel="icon" href="/favicon.ico" sizes="32x32">\n<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ${headScripts()}${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head><body>
 <header class="site"><div class="wrap"><a href="/">${esc(NAME)}</a>
@@ -361,6 +361,7 @@ fs.mkdirSync(path.join(DIST,'assets'), { recursive:true });
 fs.copyFileSync('assets/styles.css', path.join(DIST,'assets/styles.css'));
 fs.copyFileSync('assets/app.js', path.join(DIST,'assets/app.js'));
 fs.copyFileSync('src/calculator.js', path.join(DIST,'assets/calculator.js'));
+['favicon.svg','favicon.ico','apple-touch-icon.png'].forEach(f=>{ if(fs.existsSync(f)) fs.copyFileSync(f, path.join(DIST,f)); });
 
 const urls = ['/','/about/'];
 homePage(); aboutPage(); notFound();
