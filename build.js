@@ -344,7 +344,12 @@ COMPARE_ANCHORS.forEach(a => statesData.forEach(st => {
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u=>`<url><loc>${SITE}${u}</loc><changefreq>monthly</changefreq></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(DIST,'sitemap.xml'), sitemap);
 fs.writeFileSync(path.join(DIST,'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
-// caching headers (Netlify/Cloudflare Pages)
+
+// ads.txt — authorized sellers (required by AdSense to protect ad revenue)
+if (cfg.adsenseClient) {
+  const pub = cfg.adsenseClient.replace(/^ca-/, '');
+  fs.writeFileSync(path.join(DIST,'ads.txt'), `google.com, ${pub}, DIRECT, f08c47fec0942fa0\n`);
+}// caching headers (Netlify/Cloudflare Pages)
 fs.writeFileSync(path.join(DIST,'_headers'), `/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n/*\n  Cache-Control: public, max-age=3600\n`);
 
 console.log('Pages generated:', urls.length, '| GA4:', cfg.ga4?'on':'off', '| AdSense:', cfg.adsenseClient?'on':'off', '| site:', SITE);
