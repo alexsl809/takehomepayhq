@@ -20,6 +20,7 @@
 
     $('r-takehome').textContent = fmt(r.takeHome);
     $('r-percheck').textContent = fmt(r.perPaycheck);
+    if ($('r-permonth')) $('r-permonth').textContent = fmt(r.perMonth);
     $('r-gross').textContent = fmt(r.gross);
     $('r-federal').textContent = fmt(r.federalTax);
     $('r-ss').textContent = fmt(r.socialSecurity);

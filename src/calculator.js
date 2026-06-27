@@ -63,6 +63,7 @@
       totalTax: totalTax,
       takeHome: takeHome,
       perPaycheck: takeHome / periods,
+      perMonth: takeHome / 12,
       effectiveRate: gross > 0 ? totalTax / gross : 0,
       periods: periods
     };

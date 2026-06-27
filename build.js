@@ -79,7 +79,7 @@ ${withStateSelector ? `<label for="thp-state">State</label><select id="thp-state
 </div>
 <div class="card"><div class="result-sub">Estimated take-home pay (annual)</div>
 <div class="result-big" id="r-takehome">$0</div>
-<div class="result-sub"><span id="r-percheck">$0</span> per paycheck · effective tax rate <span id="r-eff">0%</span></div>
+<div class="result-sub"><b><span id="r-permonth">$0</span>/month</b> &middot; <span id="r-percheck">$0</span> per paycheck &middot; effective rate <span id="r-eff">0%</span></div>
 <div class="bars">
 <div class="bar-row"><span>Take-home</span><div class="bar-track"><div class="bar-fill takehome" id="bar-takehome"></div></div></div>
 <div class="bar-row"><span>Federal</span><div class="bar-track"><div class="bar-fill federal" id="bar-federal"></div></div></div>
@@ -162,11 +162,11 @@ function salaryPage(amount, st) {
   const body = `
 <p class="crumbs"><a href="/">Home</a> › <a href="/take-home-pay/${st.slug}/">${esc(st.name)}</a> › $${amount.toLocaleString()} after taxes</p>
 <h1>$${amount.toLocaleString()} After Taxes in ${st.name} (${YEAR})</h1>
-<p class="lead">A single filer earning $${amount.toLocaleString()} in ${st.name} takes home about <b>${usd(sample.takeHome)}</b> per year.</p>
+<p class="lead">$${amount.toLocaleString()} a year is about <b>${usd(sample.takeHome/12)} per month</b> after taxes in ${st.name} &mdash; a single filer takes home about <b>${usd(sample.takeHome)}</b> per year.</p>
 ${calcCard({ withStateSelector:false, defaultState:st.slug, defaultSalary:amount })}
 ${adUnit()}
 <h2>Breakdown of $${amount.toLocaleString()} in ${st.name}</h2>
-<p>Estimated federal income tax ${usd(sample.federalTax)}, Social Security ${usd(sample.socialSecurity)}, Medicare ${usd(sample.medicare)}, ${st.name} state tax ${usd(sample.stateTax)} — total tax ${usd(sample.totalTax)} (${(sample.effectiveRate*100).toFixed(1)}%). That leaves <b>${usd(sample.takeHome)}</b> take-home, or ${usd(sample.perPaycheck)} per bi-weekly paycheck.</p>
+<p>Estimated federal income tax ${usd(sample.federalTax)}, Social Security ${usd(sample.socialSecurity)}, Medicare ${usd(sample.medicare)}, ${st.name} state tax ${usd(sample.stateTax)} — total tax ${usd(sample.totalTax)} (${(sample.effectiveRate*100).toFixed(1)}%). That leaves <b>${usd(sample.takeHome)}</b> take-home &mdash; about <b>${usd(sample.takeHome/12)} per month</b>, or ${usd(sample.perPaycheck)} per bi-weekly paycheck.</p>
 ${cta()}
 ${stateNote(st)}
 <h2>Other salaries in ${st.name}</h2>
