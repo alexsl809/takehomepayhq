@@ -113,10 +113,9 @@ function faq(stateName, sample) {
 
 function statePage(st) {
   const sample = TaxEngine.compute({ gross: 75000, status: 'single', frequency: 'biweekly', pct401k: 0 }, fed, st);
-  const salaryRows = SALARIES.map(a=>{const r=TaxEngine.compute({gross:a,status:'single',frequency:'biweekly',pct401k:0},fed,st);return {a, ann:r.takeHome, mo:r.takeHome/12};});
   const canonical = `/take-home-pay/${st.slug}/`;
-  const title = `${st.name} Paycheck Calculator ${YEAR}: Take-Home Pay After Taxes`;
-  const desc = `${st.name} take-home pay calculator for ${YEAR}. $75,000 is about ${usd(sample.takeHome/12)}/month after taxes in ${st.name}. See your paycheck after federal, FICA & state taxes — free and instant.`;
+  const title = `${st.name} Take-Home Pay Calculator ${YEAR} — Paycheck After Taxes`;
+  const desc = `Calculate your ${st.name} take-home pay for ${YEAR}. See your paycheck after federal, Social Security, Medicare, and ${st.name} state taxes. Free and instant.`;
   const f = faq(st.name, sample);
   const taxLine = st.type === 'none'
     ? `${st.name} has <b>no state income tax</b>, so your paycheck keeps more than in most states.`
@@ -137,11 +136,7 @@ function statePage(st) {
 ${calcCard({ withStateSelector:false, defaultState:st.slug, defaultSalary:75000 })}
 ${adUnit()}
 <h2>How much is take-home pay in ${st.name}?</h2>
-<p>${taxLine} For example, a single filer earning <b>$75,000</b> in ${st.name} in ${YEAR} takes home roughly <b>${usd(sample.takeHome)}</b> per year — about <b>${usd(sample.takeHome/12)}</b> per month or <b>${usd(sample.perPaycheck)}</b> per bi-weekly paycheck, an effective tax rate of <b>${(sample.effectiveRate*100).toFixed(1)}%</b>. Adjust the salary, filing status, and 401(k) above to match your situation.</p>
-<h2>Take-home pay by salary in ${st.name} (${YEAR})</h2>
-<table class="breakdown"><tr><td><b>Gross salary</b></td><td><b>Annual take-home</b></td><td><b>Per month</b></td></tr>
-${salaryRows.map(r=>`<tr><td><a href="/salary/${r.a}/${st.slug}/">$${r.a.toLocaleString()}</a></td><td>${usd(r.ann)}</td><td>${usd(r.mo)}</td></tr>`).join('')}
-</table>
+<p>${taxLine} For example, a single filer earning <b>$75,000</b> in ${st.name} in ${YEAR} takes home roughly <b>${usd(sample.takeHome)}</b> per year — about <b>${usd(sample.perPaycheck)}</b> per bi-weekly paycheck, an effective tax rate of <b>${(sample.effectiveRate*100).toFixed(1)}%</b>. Adjust the salary, filing status, and 401(k) above to match your situation.</p>
 ${cta()}
 <h2>Popular salaries in ${st.name}</h2>
 <div class="chips">${salaryChips}</div>
@@ -175,7 +170,7 @@ ${adUnit()}
 ${cta()}
 ${stateNote(st)}
 <h2>Other salaries in ${st.name}</h2>
-<div class="chips">${others} <a href="/salary/${amount}/">$${amount.toLocaleString()} in all states →</a> <a href="/take-home-pay/${st.slug}/">All salaries →</a></div>
+<div class="chips">${others} <a href="/take-home-pay/${st.slug}/">All salaries →</a></div>
 ${DISC}`;
   write(`salary/${amount}/${st.slug}/index.html`, layout({ title, desc, canonical, jsonld, body, embed:`window.__STATE__=${JSON.stringify(st)};` }));
   return canonical;
@@ -359,38 +354,6 @@ ${cta()}`;
   return '/guides/';
 }
 
-
-function salaryHubPage(amount){
-  const canonical=`/salary/${amount}/`;
-  const mo=amount/12, wk=amount/52, bi=amount/26, hr=amount/2080;
-  const base=TaxEngine.compute({gross:amount,status:'single',frequency:'biweekly',pct401k:0},fed,statesBySlug['texas']); // no-income-tax baseline
-  const title=`$${amount.toLocaleString()} a Year Is How Much After Taxes? (Monthly, ${YEAR})`;
-  const desc=`$${amount.toLocaleString()} a year is about $${Math.round(mo).toLocaleString()}/month before tax, and roughly ${usd(base.takeHome/12)}/month take-home in a no-income-tax state. See by state for ${YEAR}.`;
-  const jsonld=[{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
-    {"@type":"ListItem","position":2,"name":`$${amount} after taxes`,"item":SITE+canonical}]}];
-  const stateLinks=statesData.map(st=>`<a href="/salary/${amount}/${st.slug}/">${esc(st.name)}</a>`).join('');
-  const body=`
-<p class="crumbs"><a href="/">Home</a> &#8250; $${amount.toLocaleString()} after taxes</p>
-<h1>$${amount.toLocaleString()} a Year Is How Much After Taxes?</h1>
-<p class="lead">$${amount.toLocaleString()} per year is <b>$${Math.round(mo).toLocaleString()} per month</b> before taxes. After federal income tax and FICA, take-home is roughly <b>${usd(base.takeHome)}</b> per year (about <b>${usd(base.takeHome/12)}/month</b>) in a state with no income tax &mdash; less where state tax applies.</p>
-<h2>$${amount.toLocaleString()} a year broken down (gross)</h2>
-<table class="breakdown">
-<tr><td>Per month</td><td>$${Math.round(mo).toLocaleString()}</td></tr>
-<tr><td>Bi-weekly</td><td>$${Math.round(bi).toLocaleString()}</td></tr>
-<tr><td>Per week</td><td>$${Math.round(wk).toLocaleString()}</td></tr>
-<tr><td>Per hour (40 hrs/wk)</td><td>$${hr.toFixed(2)}</td></tr>
-</table>
-${adUnit()}
-<h2>$${amount.toLocaleString()} after taxes by state</h2>
-<p>Your take-home depends on your state. Pick yours for an exact monthly and per-paycheck breakdown:</p>
-<div class="statelist">${stateLinks}</div>
-${cta()}
-${DISC}`;
-  write(`salary/${amount}/index.html`, layout({ title, desc, canonical, jsonld, body }));
-  return canonical;
-}
-
 // ---------- Build ----------
 rmrf(DIST);
 fs.mkdirSync(DIST, { recursive:true });
@@ -407,7 +370,6 @@ guides.forEach(g => urls.push(guidePage(g)));
 urls.push(privacyPage(), termsPage(), contactPage());
 statesData.forEach(s => urls.push(statePage(s)));
 statesData.forEach(s => SALARIES.forEach(a => urls.push(salaryPage(a, s))));
-SALARIES.forEach(a => urls.push(salaryHubPage(a)));
 HOURLY_RATES.forEach(r => urls.push(hourlyPage(r)));
 const seenCmp = new Set();
 COMPARE_ANCHORS.forEach(a => statesData.forEach(st => {
