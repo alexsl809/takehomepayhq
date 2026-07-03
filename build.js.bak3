@@ -100,15 +100,9 @@ ${withStateSelector ? `<label for="thp-state">State</label><select id="thp-state
 const DISC = `<div class="disclaimer"><b>Disclaimer:</b> These are ${YEAR} estimates for educational purposes, not tax or financial advice. Federal &amp; FICA figures use IRS/SSA ${YEAR} data; state figures use single-filer brackets and exclude local taxes. Your actual taxes depend on deductions, credits, and local taxes.</div>`;
 function stateNote(st){ return st && st.note ? `<div class="disclaimer" style="background:#eef5ff;border-color:#cfe0f5;color:#33506e"><b>${esc(st.name)} note:</b> ${esc(st.note)}</div>` : ''; }
 
-function faq(st, sample) {
-  const stateName = st.name;
-  const h20 = TaxEngine.compute({gross:20*2080,status:'single',frequency:'biweekly',pct401k:0},fed,st);
-  const h30 = TaxEngine.compute({gross:30*2080,status:'single',frequency:'biweekly',pct401k:0},fed,st);
-  const stTax = st.type==='none' ? 'federal income tax, Social Security, and Medicare' : `federal, FICA, and ${stateName} state taxes`;
+function faq(stateName, sample) {
   const items = [
-    [`How much is take-home pay on $75,000 in ${stateName}?`, `For a single filer in ${stateName} earning $75,000 in ${YEAR}, estimated take-home pay is about ${usd(sample.takeHome)} per year (${usd(sample.takeHome/12)} per month, ${usd(sample.perPaycheck)} bi-weekly), after ${stTax}.`],
-    [`How much is $20 an hour after taxes in ${stateName}?`, `$20 an hour is $41,600 a year. In ${stateName} that is about ${usd(h20.takeHome)} take-home per year — roughly ${usd(h20.takeHome/12)} per month after ${stTax}.`],
-    [`How much is $30 an hour after taxes in ${stateName}?`, `$30 an hour is $62,400 a year. In ${stateName} that is about ${usd(h30.takeHome)} take-home per year — roughly ${usd(h30.takeHome/12)} per month after ${stTax}.`],
+    [`How much is take-home pay on $75,000 in ${stateName}?`, `For a single filer in ${stateName} earning $75,000 in ${YEAR}, estimated take-home pay is about ${usd(sample.takeHome)} per year (${usd(sample.perPaycheck)} bi-weekly), after federal income tax, Social Security, Medicare, and state income tax.`],
     [`What taxes are taken out of my paycheck in ${stateName}?`, `Federal income tax, Social Security (6.2% up to ${usd(fed.fica.ssWageBase)}), Medicare (1.45%), and ${stateName} state income tax where applicable.`],
     [`How is this calculated?`, `We apply ${YEAR} IRS federal brackets and the standard deduction, FICA payroll taxes, and ${stateName} state income tax rules to your gross salary.`]
   ];
@@ -122,8 +116,8 @@ function statePage(st) {
   const salaryRows = SALARIES.map(a=>{const r=TaxEngine.compute({gross:a,status:'single',frequency:'biweekly',pct401k:0},fed,st);return {a, ann:r.takeHome, mo:r.takeHome/12};});
   const canonical = `/take-home-pay/${st.slug}/`;
   const title = `${st.name} Paycheck Calculator ${YEAR}: Take-Home Pay After Taxes`;
-  const desc = `${st.name} paycheck calculator for ${YEAR}. $75,000 is about ${usd(sample.takeHome/12)}/month after taxes in ${st.name}. See your paycheck after federal, FICA & state taxes — free and instant.`;
-  const f = faq(st, sample);
+  const desc = `${st.name} take-home pay calculator for ${YEAR}. $75,000 is about ${usd(sample.takeHome/12)}/month after taxes in ${st.name}. See your paycheck after federal, FICA & state taxes — free and instant.`;
+  const f = faq(st.name, sample);
   const taxLine = st.type === 'none'
     ? `${st.name} has <b>no state income tax</b>, so your paycheck keeps more than in most states.`
     : `${st.name} levies a state income tax, which is included in the estimate below.`;
@@ -151,8 +145,6 @@ ${salaryRows.map(r=>`<tr><td><a href="/salary/${r.a}/${st.slug}/">$${r.a.toLocal
 ${cta()}
 <h2>Popular salaries in ${st.name}</h2>
 <div class="chips">${salaryChips}</div>
-<h2>Hourly wage after taxes</h2>
-<div class="chips">${[20,25,30,40,50].map(r=>`<a href="/hourly-to-salary/${r}-per-hour/">$${r}/hour after taxes</a>`).join('')}</div>
 ${stateNote(st)}
 ${f.html}
 <h2>Take-home pay in other states</h2>
@@ -271,7 +263,7 @@ function contactPage(){
 function hourlyPage(rate){
   const annual = rate*2080;
   const canonical = `/hourly-to-salary/${rate}-per-hour/`;
-  const title = `$${rate} an Hour Is How Much a Year After Taxes? (${YEAR})`;
+  const title = `$${rate} an Hour Is How Much a Year? (After Taxes, ${YEAR})`;
   const desc = `$${rate} an hour is $${annual.toLocaleString()} a year before taxes. See your take-home pay after federal, FICA, and state taxes with our free ${YEAR} calculator.`;
   const allStatesMap = {}; statesData.forEach(s=>allStatesMap[s.slug]=s);
   const jsonld = [{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
