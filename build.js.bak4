@@ -270,15 +270,6 @@ function contactPage(){
 
 function hourlyPage(rate){
   const annual = rate*2080;
-  const HPOP=['california','texas','new-york','florida','illinois','pennsylvania','ohio','georgia'];
-  const hbase=TaxEngine.compute({gross:annual,status:'single',frequency:'biweekly',pct401k:0},fed,statesBySlug['texas']);
-  const hstRows=HPOP.map(sl=>{const s2=statesBySlug[sl];const r=TaxEngine.compute({gross:annual,status:'single',frequency:'biweekly',pct401k:0},fed,s2);return `<tr><td><a href="/take-home-pay/${sl}/">${esc(s2.name)}</a></td><td>${usd(r.takeHome)}</td><td>${usd(r.takeHome/12)}</td></tr>`;}).join('');
-  const hfq=faqBlock([
-    [`$${rate} an hour is how much a year after taxes?`, `$${rate} an hour is $${annual.toLocaleString()} a year before taxes. After federal income tax and FICA, take-home is about ${usd(hbase.takeHome)} a year (${usd(hbase.takeHome/12)}/month) in a no-income-tax state; less where state income tax applies.`],
-    [`$${rate} an hour is how much a month?`, `About $${Math.round(annual/12).toLocaleString()} per month before taxes, or roughly ${usd(hbase.takeHome/12)}/month take-home in a no-tax state.`],
-    [`$${rate} an hour is how much biweekly?`, `$${(rate*80).toLocaleString()} gross per two-week pay period (80 hours at $${rate}/hr).`]
-  ]);
-  const hourlyExtra=`<h2>$${rate}/hour take-home pay by state (${YEAR})</h2><table class="breakdown"><tr><td><b>State</b></td><td><b>Annual take-home</b></td><td><b>Per month</b></td></tr>${hstRows}</table>\n${hfq.html}\n<h2>Explore annual salaries</h2><div class="chips"><a href="/salary/50000/">$50,000/yr</a> <a href="/salary/75000/">$75,000/yr</a> <a href="/salary/100000/">$100,000/yr</a></div>`;
   const canonical = `/hourly-to-salary/${rate}-per-hour/`;
   const title = `$${rate} an Hour Is How Much a Year After Taxes? (${YEAR})`;
   const desc = `$${rate} an hour is $${annual.toLocaleString()} a year before taxes. See your take-home pay after federal, FICA, and state taxes with our free ${YEAR} calculator.`;
@@ -286,7 +277,6 @@ function hourlyPage(rate){
   const jsonld = [{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
     {"@type":"ListItem","position":2,"name":`$${rate}/hour to salary`,"item":SITE+canonical}]}];
-  jsonld.push(hfq.ld);
   const others = HOURLY_RATES.filter(r=>r!==rate).map(r=>`<a href="/hourly-to-salary/${r}-per-hour/">$${r}/hr</a>`).join('');
   const body = `
 <p class="crumbs"><a href="/">Home</a> &#8250; $${rate} an hour to salary</p>
@@ -304,7 +294,6 @@ ${adUnit()}
 <p>Your take-home depends on your state and filing status. Use the calculator below &mdash; it&#39;s pre-filled with $${annual.toLocaleString()}.</p>
 ${calcCard({ withStateSelector:true, defaultState:'california', defaultSalary:annual })}
 ${cta()}
-${hourlyExtra}
 <h2>Other hourly rates</h2>
 <div class="chips">${others}</div>
 ${DISC}`;
@@ -342,7 +331,6 @@ ${tr}
 ${cta()}
 <h2>Full calculators</h2>
 <div class="chips"><a href="/take-home-pay/${a.slug}/">${esc(a.name)} calculator</a> <a href="/take-home-pay/${b.slug}/">${esc(b.name)} calculator</a></div>
-<h2>Salary after taxes</h2><div class="chips"><a href="/salary/50000/">$50k</a> <a href="/salary/75000/">$75k</a> <a href="/salary/100000/">$100k</a></div>
 ${DISC}`;
   write(`compare/${a.slug}-vs-${b.slug}/index.html`, layout({ title, desc, canonical, jsonld, body }));
   return canonical;
@@ -384,17 +372,11 @@ function salaryHubPage(amount){
   const canonical=`/salary/${amount}/`;
   const mo=amount/12, wk=amount/52, bi=amount/26, hr=amount/2080;
   const base=TaxEngine.compute({gross:amount,status:'single',frequency:'biweekly',pct401k:0},fed,statesBySlug['texas']); // no-income-tax baseline
-  const shfq=faqBlock([
-    [`$${amount.toLocaleString()} a year is how much a month after taxes?`, `$${amount.toLocaleString()} is $${Math.round(mo).toLocaleString()}/month before tax. Take-home is roughly ${usd(base.takeHome/12)}/month in a no-income-tax state; less where state tax applies. Pick your state above for the exact figure.`],
-    [`$${amount.toLocaleString()} a year is how much biweekly?`, `About $${Math.round(bi).toLocaleString()} gross per bi-weekly paycheck (before taxes).`],
-    [`$${amount.toLocaleString()} a year is how much an hour?`, `About $${hr.toFixed(2)} per hour at 40 hours a week.`]
-  ]);
   const title=`$${amount.toLocaleString()} a Year Is How Much After Taxes? (Monthly, ${YEAR})`;
   const desc=`$${amount.toLocaleString()} a year is about $${Math.round(mo).toLocaleString()}/month before tax, and roughly ${usd(base.takeHome/12)}/month take-home in a no-income-tax state. See by state for ${YEAR}.`;
   const jsonld=[{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
     {"@type":"ListItem","position":2,"name":`$${amount} after taxes`,"item":SITE+canonical}]}];
-  jsonld.push(shfq.ld);
   const stateLinks=statesData.map(st=>`<a href="/salary/${amount}/${st.slug}/">${esc(st.name)}</a>`).join('');
   const body=`
 <p class="crumbs"><a href="/">Home</a> &#8250; $${amount.toLocaleString()} after taxes</p>
@@ -411,19 +393,10 @@ ${adUnit()}
 <h2>$${amount.toLocaleString()} after taxes by state</h2>
 <p>Your take-home depends on your state. Pick yours for an exact monthly and per-paycheck breakdown:</p>
 <div class="statelist">${stateLinks}</div>
-${shfq.html}
-<h2>Hourly equivalents</h2><div class="chips"><a href="/hourly-to-salary/25-per-hour/">$25/hour</a> <a href="/hourly-to-salary/30-per-hour/">$30/hour</a> <a href="/hourly-to-salary/40-per-hour/">$40/hour</a></div>
 ${cta()}
 ${DISC}`;
   write(`salary/${amount}/index.html`, layout({ title, desc, canonical, jsonld, body }));
   return canonical;
-}
-
-
-function faqBlock(items){
-  const html = `<div class="faq"><h2>Frequently asked questions</h2>${items.map(([q,a])=>`<h3>${esc(q)}</h3><p>${a}</p>`).join('')}</div>`;
-  const ld = { "@context":"https://schema.org","@type":"FAQPage","mainEntity": items.map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":String(a).replace(/<[^>]+>/g,'')}})) };
-  return { html, ld };
 }
 
 // ---------- Build ----------
